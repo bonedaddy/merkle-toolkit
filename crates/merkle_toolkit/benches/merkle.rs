@@ -1,5 +1,5 @@
 use criterion::{black_box, criterion_group, criterion_main, BenchmarkId, Criterion};
-use merkle_toolkit::{hash_nodes, MerkleTree};
+use merkle_toolkit::MerkleTree;
 use sha2::{Digest, Sha256};
 use std::time::Duration;
 
@@ -7,7 +7,7 @@ use std::time::Duration;
 fn build_tree(depth: usize) -> MerkleTree {
     let mut tree = MerkleTree::new(depth);
     for i in 0u32..(1u32 << depth) {
-        tree.append_leaf(Sha256::digest(&i.to_le_bytes()).into());
+        tree.append_leaf(Sha256::digest(i.to_le_bytes()).into());
     }
     tree
 }
